@@ -13,7 +13,7 @@
         <img class="bg" src="picture/bghome1.png" alt="Photo">
         <h1 class="black">VIO Management </h1>
         <div>
-            <button class="btnaccount" onclick="showacc()">Admin <i class="fas fa-user-circle"></i></button>
+            <button class="btnaccount" onclick="showacc()">Admin  <i class="fas fa-user-circle"></i></button>
             <div class="accountmenu" id="acc">
                 <li><a href="account.html">Tài Khoản</a></li>
                 <li><a href="index.html">Thoát</a></li>
