@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>Food Court Management</title>
         <link rel="stylesheet" type="text/css" href="css\home.css">
-        
+        <link rel="stylesheet" type="text/css" href="css\import.css">
         <script src="https://kit.fontawesome.com/a00706d209.js" crossorigin="anonymous"></script>
 
     </head>
@@ -18,9 +18,7 @@
             </div>
         </div>
         <h1 class="account"></h1>
-        <div class="text1">
-            <h1>Nhập hàng</h1>
-        </div>
+        
         <nav class="menu">
             <ul id="mainmenu">
                 
@@ -46,6 +44,61 @@
             </ul>
         </nav>
         
+        <div class="orders imports">
+            <div class="breadcrumbs-fixed panel-action">
+                <div class="row">
+                    <div class="orders-act">
+                        <div class="col-md-4 col-md-offset-2">
+                            <div class="left-action text-left clearfix">
+                                <h2>Danh sách phiếu nhập</h2>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="right-action text-right">
+                                <div class="btn-groups">
+                                    <button type="button" class="btn btn-primary"  onclick="showput()">
+                                        <i class="fa fa-plus"></i> Tạo phiếu nhập
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-space orders-space"></div>
+            <div class="orders-content">
+                <div class="imports-main-body">
+                    123
+                </div>
+            </div>
+        </div>
+        <div class="putproduct">
+            <div class="subputproduct" id="subputproduct">
+                <form method="post" action="">  
+                    Tên sản phẩm: <input type="text" name="name">
+                    <br><br>
+                    ID Cửa hàng: <input type="text" name="email">
+                    <br><br>
+                    Số lượng: <input type="text" name="website">
+                    <br><br>
+                    Nhà cung cấp: <input type="text" name="name">
+                    <br><br>
+                    Ghi chú: <textarea name="comment" rows="5" cols="40"></textarea>
+                    <br><br>
+                    Chọn đơn vị: <select id="cars" name="cars">
+                        <option value="kilogam">Kilogam</option>
+                        <option value="lit">Lit</option>
+                        <option value="gam">Gam</option>
+                        <option value="loc">Lock</option>
+                      </select>
+                    <br><br>
+                    <input type="submit" name="submit" value="Submit" style="width: 80px; height: 20px; ">  
+                  </form>
+            </div>
+            <div class="show-import" >
+                12345
+            </div>
+        </div>
         
         <script type="text/javascript" src="js/home.js"></script>
 
