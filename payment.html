@@ -1,58 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Food Court Management</title>
-        <link rel="stylesheet" type="text/css" href="css\home.css">
-        <link rel="stylesheet" type="text/css" href="css\inventory.css">
-        <script src="https://kit.fontawesome.com/a00706d209.js" crossorigin="anonymous"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Food Court Management</title>
+    <link rel="stylesheet" type="text/css" href="css\home.css">
+    <link href="css\payment\bootstrap.min.css" rel="stylesheet">
+    <link href="css\payment\font-awesome.min.css" rel="stylesheet">
+    <link href="css\payment\style.css" rel="stylesheet">
+    <link href="css\payment\jquery-ui.min.css" rel="stylesheet">
+	
+</head>
+<body>
 
-    </head>
-    <body>
-        <h1 class="black">VIO Management </h1>
-        <div>
-            <button class="btnaccount" onclick="showacc()">Admin  <i class="fas fa-user-circle"></i></button>
-            <div class="accountmenu" id="acc">
-                <li><a href="account.html">Tài Khoản</a></li>
-                <li><a href="index.html">Thoát</a></li>
+<section id="pos" class="main" role="main">
+    <div class="showipayment">
+        <div class="header-payment">
+            <h2>Thanh toán</h2>
+        </div>     
+         
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 padd-left-0">
+                <div class="main-content">
+                    
+                    <div >
+                        <div class="row">
+                            <div class="orders-act">
+                                <div class="col-md-8">
+                                    <div class="order-search" style="margin: 10px 0px; position: relative;">
+                                        <input type="text" class="form-control"
+                                               placeholder="Nhập mã sản phẩm hoặc tên sản phẩm (F2)"
+                                               id="search-pro-box">
+                                    </div>
+                                    <div class="product-results">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">STT</th>
+                                                <th>Mã hàng</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th class="text-center">Số lượng</th>
+                                                <th class="text-center">Giá bán</th>
+                                                <th class="text-center">Thành tiền</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="pro_search_append">
+                                            </tbody>
+                                        </table>
+                                        <div class="alert alert-success" style="margin-top: 30px;" role="alert">Gõ mã hoặc tên sản phẩm vào hộp tìm kiếm để thêm hàng vào đơn hàng
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="morder-info" style="padding: 4px;">
+                                                <div class="tab-contents" style="padding: 8px 6px;">
+                                                    <div class="form-group marg-bot-10 clearfix">
+                                                        <div style="padding:0px" class="col-md-4">
+                                                            <label>Khách hàng</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="col-md-10 padd-0" style="position: relative;">
+                                                                <input id="search-box-cys" class="form-control"
+                                                                       type="text"
+                                                                       placeholder="Tìm khách hàng (F4)"
+                                                                       style="border-radius: 3px 0 0 3px !important;"><span
+                                                                    style="color: red; position: absolute; right: 5px; top:5px; "
+                                                                    class="del-cys"></span>
+
+                                                                <div id="cys-suggestion-box"
+                                                                     style="border: 1px solid #444; display: none; overflow-y: auto;background-color: #fff; z-index: 2 !important; position: absolute; left: 0; width: 100%; padding: 5px 0px; max-height: 400px !important;">
+                                                                    <div class="search-cys-inner"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2 padd-0">
+                                                                <button type="button" data-toggle="modal"
+                                                                        data-target="#create-cust"
+                                                                        class="btn btn-primary"
+                                                                        style="border-radius: 0 3px 3px 0; box-shadow: none; padding: 7px 11px;">
+                                                                    +KH Mới
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group marg-bot-10 clearfix">
+                                                        <div style="padding:0px" class="col-md-4">
+                                                            <label>Nhân viên bán hàng</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <select class="form-control" id="sale_id">
+                                                                <option value="">Lựa chọn nhân viên bán hàng</option>
+                                                                <?php foreach ($data['sale'] as $item) { ?>
+                                                                    <option
+                                                                        value="<?php echo $item['id']; ?>"><?php echo $item['display_name']; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group marg-bot-10 clearfix">
+                                                        <div style="padding:0px" class="col-md-4">
+                                                            <label>Ghi chú</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                    <textarea id="note-order" cols="" class="form-control" rows="3"
+                                              style="border-radius: 0;"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <h4 class="lighter" style="margin-top: 0;">
+                                                * Thông tin thanh toán
+                                            </h4>
+
+                                            <div class="morder-info" style="padding: 4px;">
+                                                <div class="tab-contents" style="padding: 8px 6px;">
+                                                    <div class="form-group marg-bot-10 clearfix">
+                                                        <div class="col-md-4">
+                                                            <label>Hình thức</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group">
+                                                                <input type="radio" class="payment-method"
+                                                                       name="method-pay" value="1" checked>
+                                                                Tiền mặt &nbsp;
+                                                                <input type="radio" class="payment-method"
+                                                                       name="method-pay" value="2"> Thẻ&nbsp;
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group marg-bot-10 clearfix">
+                                                        <div class="col-md-4">
+                                                            <label>Tiền hàng</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="total-money">
+                                                                0
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group marg-bot-10 clearfix">
+                                                        <div class="col-md-4">
+                                                            <label>Giảm giá (F7)</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input type="text"
+                                                                   class="form-control text-right txtMoney discount-order"
+                                                                   placeholder="0" style="border-radius: 0 !important;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group marg-bot-10 clearfix">
+                                                        <div class="col-md-4">
+                                                            <label>Tổng cộng</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="total-after-discount">
+                                                                0
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group marg-bot-10 clearfix">
+                                                        <div class="col-md-4 padd-right-0">
+                                                            <label>Khách đã thanh toán (F8)</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input type="text"
+                                                                   class="form-control text-right txtMoney customer-pay"
+                                                                   placeholder="0" style="border-radius: 0 !important;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group marg-bot-10 clearfix">
+                                                        <div class="col-md-4">
+                                                            <label class="debt">Khách còn nợ</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="debt">0</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="btn-groups pull-right" style="margin-bottom: 50px;">
+                                                <button type="button" class="btn btn-primary"
+                                                        onclick="cms_save_orders(3)"> Lưu 
+                                                </button>
+                                                <button type="button" class="btn btn-primary"
+                                                        onclick="cms_save_orders(4)"> Lưu và in
+                                                </button>
+                                                <a href="home.html">
+                                                    <button type="button" class="btn btn-primary"
+                                                        onclick="cms_javascript_redirect( cms_javascrip_fullURL() )">
+                                                        Trở về
+													</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <h1 class="account"></h1>
-        <nav class="menu">
-            <ul id="mainmenu">
-                
-                <li><a href="home.html"><i class="fa fa-home" aria-hidden="true"></i>Trang chủ
-                    </a></li>
-                <li><a href="payment.html"><i class="fa fa-cash-register" aria-hidden="true"></i>Thanh toán
-                    </a></li>
-                <li><a href="import.html"><i class="fa fa-plus-circle" aria-hidden="true"></i>Nhập hàng
-                    </a></li>
-                <li><a href="inventory.html"><i class="fa fa-truck" aria-hidden="true"></i>Tồn kho
-                    </a></li>
-                <li><a href="report.html"><i class="fa fa-file-text-o" aria-hidden="true"></i>Báo cáo
-                        </a></li>
-                <li><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Cập nhật
-                    <i class="fas fa-chevron-down"></i></a>
-                    <ul class="submenu3">
-                        <li><a href="updatecustomer.html">Khách hàng</a></li>
-                        <li><a href="updatestore.html">Cửa hàng</a></li>
-                        <li><a href="updatestaff.html">Nhân viên</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        
-        <div class="showinventory">
-            <div class="header-inventory">
-                <h2>Thanh toán</h2>
-            </div>
-                     
-                        
-                
-             
-        </div>
-        
-        <script type="text/javascript" src="js/home.js"></script>
-
-    </body>
+    </div>
+</section>
+</body>
 </html>
