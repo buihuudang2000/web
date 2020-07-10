@@ -11,13 +11,13 @@
     height: 60px;
     padding: 15px 0;
     display: block;
-    background: rgb(174, 175, 177);
+    background: #040b2b;
 }
 .header-payment h2{
     position: absolute;
     top: 0px;
     font-size: 25px;
-    color: #040b2b;
+    color: rgb(174, 175, 177);
     left: 50px;
 }
 body {
