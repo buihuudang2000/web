@@ -1,4 +1,5 @@
-.titleaccount{
+
+.title {
     position: absolute;
     width: 100%;
     height: 20px;
@@ -7,11 +8,16 @@
     left: 200px;
     display: block;
     background: rgb(174, 175, 177);
-    
 }
-.titleaccount .textacc{
+.title h2{
     position: absolute;
     font-size: 25px;
     color: #040b2b;
     left: 50px;
 }
+.row-account-info {
+    position: absolute;
+    left: 300px;
+    top: 120px;
+}
+
