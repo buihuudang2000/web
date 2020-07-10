@@ -27,10 +27,21 @@
 }
 .putproduct{
     position: absolute;
+    top: 120px;
     left: 250px;
 }
+.putproduct input{
+    width: 100%;
+    height: 20px;
+    
+}
 .subputproduct{
+    width: 500px;
+    height: 380px;
+    padding: 15px 10px;
+    border-radius: 1rem;
     display: none;
+    background: rgb(174, 175, 177);
 }
 .putproduct .show-import{
     margin-top: 20px;
