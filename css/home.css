@@ -1,6 +1,5 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap');
-
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 * { 
@@ -8,6 +7,23 @@
     margin: 0; 
     font-family: 'Josefin Sans', sans-serif;
     
+}
+
+.header-session {
+    position: relative;
+    width: 86%;
+    height: 20px;
+    padding: 15px 0;
+    top: 0px;
+    left: 200px;
+    display: block;
+    background: rgb(174, 175, 177);
+}
+.header-session h2{
+    position: absolute;
+    font-size: 25px;
+    color: #040b2b;
+    left: 50px;
 }
 
 .account {

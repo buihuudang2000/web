@@ -14,13 +14,24 @@
     color: #040b2b;
     left: 50px;
 }
-.btn {
+.btnadd {
     position: absolute;
     width: 150px;
     height: 35px;
     padding: 10px 0;
     top: 65px;
     left: 1150px;
+    display: block;
+    border-radius: 0.4rem;
+    background: rgb(53, 113, 231);
+}
+.btnremove {
+    position: absolute;
+    width: 150px;
+    height: 35px;
+    padding: 10px 0;
+    top: 65px;
+    left: 980px;
     display: block;
     border-radius: 0.4rem;
     background: rgb(53, 113, 231);
@@ -37,11 +48,21 @@
 }
 .subputproduct{
     width: 500px;
-    height: 380px;
+    height: 420px;
     padding: 15px 10px;
     border-radius: 1rem;
     display: none;
     background: rgb(174, 175, 177);
+    margin-top: 10px;
+}
+.subremoveproduct{
+    width: 500px;
+    height: 360px;
+    padding: 15px 10px;
+    border-radius: 1rem;
+    display: none;
+    background: rgb(174, 175, 177);
+    
 }
 .putproduct .show-import{
     margin-top: 20px;

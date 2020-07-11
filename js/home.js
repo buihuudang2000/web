@@ -12,3 +12,9 @@ function showput(){
     document.getElementById("subputproduct").style.display= "block";
     else document.getElementById("subputproduct").style.display= "none";
 }
+function showremove(){
+    // in import.html
+    if (document.getElementById("subremoveproduct").style.display=="none")
+    document.getElementById("subremoveproduct").style.display= "block";
+    else document.getElementById("subremoveproduct").style.display= "none";
+}

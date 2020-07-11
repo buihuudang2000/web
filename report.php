@@ -25,26 +25,27 @@
                     </a></li>
                 <li><a href="payment.php"><i class="fa fa-cash-register" aria-hidden="true"></i>Thanh toán
                     </a></li>
-                <li><a href="import.php"><i class="fa fa-plus-circle" aria-hidden="true"></i>Nhập hàng
-                    </a></li>
-                <li><a href="inventory.php"><i class="fa fa-truck" aria-hidden="true"></i>Tồn kho
+                <li><a href="product.php"><i class="fa fa-pizza-slice" aria-hidden="true"></i>Sản phẩm
                     </a></li>
                 <li><a href="report.php"><i class="fa fa-file-text-o" aria-hidden="true"></i>Báo cáo
                         </a></li>
                 <li><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Cập nhật
                     <i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu3">
-                        <li><a href="updatecustomer.php">Khách hàng</a></li>
-                        <li><a href="updatestore.php">Cửa hàng</a></li>
-                        <li><a href="updatestaff.php">Nhân viên</a></li>
                         <li><a href="updateorder.php">Đơn hàng</a></li>
+                        <li><a href="updatecustomer.php">Khách hàng</a></li>
+                        <li><a href="updatestaff.php">Nhân viên</a></li>
+                        <li><a href="updatestore.php">Cửa hàng</a></li>
+                        <li><a href="updateinventory.php">Kho hàng</a></li>
+                        
+                        
                     </ul>
                 </li>
             </ul>
         </nav>
         
-        <div class="showinventory">
-            <div class="header-inventory">
+        <div class="showsession">
+            <div class="header-session">
                 <h2>Báo cáo lợi nhuận</h2>
             </div>
                      
