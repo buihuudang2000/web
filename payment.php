@@ -192,7 +192,7 @@
                                                 <button type="button" class="btn btn-primary"
                                                         onclick="cms_save_orders(4)"> Lưu và in
                                                 </button>
-                                                <a href="home.html">
+                                                <a href="home.php">
                                                     <button type="button" class="btn btn-primary"
                                                         onclick="cms_javascript_redirect( cms_javascrip_fullURL() )">
                                                         Trở về
