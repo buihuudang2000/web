@@ -54,7 +54,7 @@ if(isset($_POST['but_submit'])){
 	<form action="" method="post">
 		<h1>Sign In</h1>
 		
-	<span>or use your account</span>
+	<span>use your account</span>
 	<input class="input" id="txt_uname" name="txt_uname" type="email"  placeholder="Email">
 	<input class="input" id="txt_uname" name="txt_pwd" type="password"  placeholder="Password">
 	<!--<a href="#">Forgot Your Password</a>-->
