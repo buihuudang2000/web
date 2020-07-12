@@ -1,16 +1,43 @@
+<?php
+include "config/config.php";
+
+
+if(isset($_POST['but_submit'])){
+
+    $uname = mysqli_real_escape_string($con,$_POST['txt_uname']);
+    $password = mysqli_real_escape_string($con,$_POST['txt_pwd']);
+
+    if ($uname != "" && $password != ""){
+
+        $sql_query = "select count(*) as cntUser from staff where email='".$uname."' and password='".$password."'";
+        $result = mysqli_query($con,$sql_query);
+        $row = mysqli_fetch_array($result);
+
+        $count = $row['cntUser'];
+
+        if($count > 0){
+            $_SESSION['uname'] = $uname;
+            header('Location: home.php');
+        }else{
+            echo "Invalid email and password";
+        }
+
+	} else echo "Email and password must be not empty";
+	
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>SignUp and Login</title>
-	<link rel="stylesheet" type="text/css" href="css/signinup.css">
+	<link rel="stylesheet" type="text/css" href="css/signinup1.css">
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
 <body>
 
 <div class="container" id="container">
 <div class="form-container sign-up-container">
-
+<!--
 <form action="home.php">
 	<h1>Create Account</h1>
 	
@@ -20,18 +47,21 @@
 	<input type="password" name="password" placeholder="Password">
 	<button id="signup" onclick="SingUp()">SignUp</button>
 </form>
+-->
 </div>
+
 <div class="form-container sign-in-container">
-	<form action="home.php">
+	<form action="" method="post">
 		<h1>Sign In</h1>
 		
 	<span>or use your account</span>
-	<input id="email" type="email" name="email" placeholder="Email">
-	<input id="pass" type="password" name="password" placeholder="Password">
-	<a href="#">Forgot Your Password</a>
-	<button onclick="SignIn()">Sign In</button>
+	<input class="input" id="txt_uname" name="txt_uname" type="email"  placeholder="Email">
+	<input class="input" id="txt_uname" name="txt_pwd" type="password"  placeholder="Password">
+	<!--<a href="#">Forgot Your Password</a>-->
+	<input type="submit" value="Sign In" name="but_submit" id="but_submit" class="but_submit"/>
 	</form>
 </div>
+
 <div class="overlay-container">
 	<div class="overlay">
 		<div class="overlay-panel overlay-left">

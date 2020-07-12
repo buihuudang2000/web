@@ -44,7 +44,7 @@ a {
 	margin: 15px 0;
 }
 
-button {
+.form-container .but_submit {
 	border-radius: 20px;
 	border: 1px solid #e0718d;
 	background-color: #FF416C;
@@ -81,7 +81,7 @@ form {
 	text-align: center;
 }
 
-input {
+.input {
 
 	background-color: #eee;
 	border: none;
@@ -144,7 +144,6 @@ input {
 		z-index: 5;
 	}
 }
-
 .overlay-container {
 	position: absolute;
 	top: 0;
