@@ -1,71 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Food Court Management</title>
-        <link rel="stylesheet" type="text/css" href="css\home.css">
-        
-        <script src="https://kit.fontawesome.com/a00706d209.js" crossorigin="anonymous"></script>
+<?php
+    include 'config/config.php';
+?>      
+<?php
+    $result = mysqli_query($con,"SELECT * FROM foo1");
 
-    </head>
-    <body>
+
+echo "<table border='1'>
+<tr>
+<th>Name</th>
+<th>IDfood</th>
+</tr>";
+
+while($row = mysqli_fetch_array($result))
+{
+echo "<tr>";
+echo "<td>" . $row['name'] . "</td>";
+echo "<td>" . $row['IDfood'] . "</td>";
+echo "</tr>";
+}
+echo "</table>";
+?>
+
+<!--in inventory.css-->
+<div class="product-results">
+    <?php
+    $result = mysqli_query($con,"SELECT * FROM foo1");
+
+
+    echo "<table border='1'>
+    <tr>
+    <th>STT</th>
+    <th>Mã cửa hàng</th>
+    <th >Mã sản phẩm</th>
+    <th >Tên sản phẩm</th>
+    <th >Giá bán</th>
+    </tr>";
+            while($row = mysqli_fetch_array($result))
+            {
+            echo "<tr>";
+            echo "<td> 1 </td>";
+            echo "<td>" . $row['IDstall'] . "</td>";
+            echo "<td>" . $row['IDfood'] . "</td>";
+            echo "<td>" . $row['name'] . "</td>";
+            echo "<td>" . $row['price'] . "</td>";
+            echo "</tr>";
+            }
+            echo "</table>";
+            ?>
+
+<?php
+            extract($_POST);
+            $name='';
+            $idstore='';
+            $url='';
+
+            if(isset($_POST["name"]) && isset($_POST["idstore"])) {
+                $name=$_POST['name'];
+                $idstore=$_POST['idstore'];
+                if(isset($_POST["url"])) { $url = $_POST['url']; }
+
+                $sql = "INSERT INTO foo1 (IDstall,name, urlStall)
+                VALUES ('$idstore','$name','$url')";
+
+            }
+            ?>
+/*đúng */
+<?php
+   $data= ' <table class="table table-bordered table-striped" >
+   <tr>
+       <th >STT</th>
+       <th >#</th>
+       <th >Mã cửa hàng</th>
+       <th >Tên cửa hàng</th>
+       <th>Chỉnh sửa</th>
+       <th>Xóa</th>
+   </tr>';
+   
+   $result= mysqli_query($con,"SELECT * FROM sto1");
+
+   if (mysqli_num_rows($result) > 0){
+       $num=1;
+       while($row = mysqli_fetch_array($result))
+       {
+           $data .= '<tr>
+               <td>' . $num++ . '</td>
+               <td><img src="' . $row['urlStall'] . '" width="25"></td>
+               <td>' . $row['IDstall'] . '</td>
+               <td>' . $row['name'] . '</td>
+               <td>   
+                   <button onclick="GetUser('. $row['IDstall'] .')" class="btn btn-warning"> <i class="fas fa-edit"></i></button>
+               </td>
+               <td>   
+               <button onclick="DeleteUser('. $row['IDstall'] .')" class="btn btn-danger"> <i class="far fa-trash-alt"></i></button>
+               </td>
+               </tr>';
        
-        <img class="bg" src="picture/bghome1.png" alt="Photo">
-        <h1 class="black">VIO Management </h1>
-        <div>
-            <button class="btnaccount" onclick="showacc()">Admin  <i class="fas fa-user-circle"></i></button>
-            <div class="accountmenu" id="acc">
-                <li><a href="account.html">Tài Khoản</a></li>
-                <li><a href="index.html">Thoát</a></li>
-            </div>
-        </div>
-        <h1 class="account"></h1>
-        <div class="text1">
-            <h1>FOOD COURT MANAGEMENT</h1>
-        </div>
-        <div class="text">
-            <h4>QUẢN LÍ NHÀ KHO * CẬP NHẬT DANH SÁCH ĐẶT HÀNG * BÁO CÁO</h4>
-            <h1>FOOD COURT MANAGEMENT</h1>
-        </div>
-        
-        <nav class="menu">
-            <ul id="mainmenu">
-                <li><a href="home.html"><i class="fa fa-home" aria-hidden="true"></i>Trang chủ
-                    </a></li>
-                <li><a href="import.html"><i class="fa fa-plus-circle" aria-hidden="true"></i>Nhập hàng
-                    </a></li>
-                <li><a href="export.html"><i class="fa fa-truck" aria-hidden="true"></i>Xuất hàng
-                    </a></li>
-                <li class="thuchi"><a href="#"><i class="fa fa-usd" aria-hidden="true"></i>Thu chi
-                    <i class="fas fa-chevron-down"></i></a>
-                    <ul class="submenu3">
-                        <li><a href="#">Phiếu thu</a></li>
-                        <li><a href="#">Phiếu chi</a></li>
-                        <li><a href="#">Báo cáo thu</a></li>
-                        <li><a href="#">Báo cáo chi</a></li>
-                    </ul>
-                </li>
-                <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i>Báo cáo
-                    <i class="fas fa-chevron-down"></i></a>
-                    <ul class="submenu2">
-                        <li><a href="#">Tồn kho</a></li>
-                        <li><a href="#">Lợi nhuận</a></li>
-                    </ul>
-                </li>
-                <li><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Cập nhật
-                    <i class="fas fa-chevron-down"></i></a>
-                    <ul class="submenu3">
-                        <li><a href="#">Khách hàng</a></li>
-                        <li><a href="#">Hàng hóa</a></li>
-                        <li><a href="#">Nhà cung cấp</a></li>
-                        <li><a href="#">Nhân viên</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        
-        <script type="text/javascript" src="js/home.js"></script>
-        
-        
-    </body>
-</html>
+       }
+   }
+   $data.='</table>';
+   echo $data;
+  ?>

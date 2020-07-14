@@ -1,6 +1,5 @@
 
-        <script type="text/javascript" src="js/home.js"></script>
-        
-        
-    </body>
+<script type="text/javascript" src="js/homepage.js"></script>
+
+</body>
 </html>

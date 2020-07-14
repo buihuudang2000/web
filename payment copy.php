@@ -1,46 +1,44 @@
+<?php
+    include 'config/config.php';   
+?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Food Court Management</title>
-    <link href="css\payment\bootstrap.min.css" rel="stylesheet">
-    <link href="css\payment\font-awesome.min.css" rel="stylesheet">
-    <link href="css\payment\style.css" rel="stylesheet">
-    <link href="css\payment\jquery-ui.min.css" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <title>Food Court Management</title>
+        <link rel="stylesheet" type="text/css" href="css\homepage.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
-    <script src="https://kit.fontawesome.com/a00706d209.js" crossorigin="anonymous"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap');
-        .title{
-            font-family: 'Josefin Sans', sans-serif;
-            margin-left:20px;
-            font-size: 25px;
-            margin-right:50px;
-        }
-        .text{
-            font-family: 'Josefin Sans', sans-serif;
-            margin-left:20px;
-            font-size: 20px;
-            color: rgb(132, 134, 168);
-        }
-    </style>
-	
-</head>
-<body>
+        <script src="https://kit.fontawesome.com/a00706d209.js" crossorigin="anonymous"></script>
 
-<section id="pos" class="main" role="main">
-    <div class="showipayment">
-        <div class="header-payment" >
-            <a class="title">VIOFOOD</a>
-            <a class="text"><i class="fa fa-cash-register" aria-hidden="true" style="margin-right:5px;"></i>Thanh toán</a>
-            <a href="homepage.php">
-                <button type="button" class="btn btn-primary"
-                onclick="cms_javascript_redirect( cms_javascrip_fullURL() )" style="position: absolute; right:10px;">Trở về
-				</button>
-            </a>
-        </div>     
-         
-    </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+        <link href="css\payment\bootstrap.min.css" rel="stylesheet">
+        <link href="css\payment\font-awesome.min.css" rel="stylesheet">
+        <link href="css\payment\style.css" rel="stylesheet">
+        <link href="css\payment\jquery-ui.min.css" rel="stylesheet">
+
+    </head>
+    <body >
+    <section id="pos" class="main" role="main">
+    
+    <nav class="navbar navbar-expand-sm  navbar-dark" style="background: #040b2b ;">
+    <button class="btn btn-dark" type="submit" onclick="actionmenu()" style="margin-right:5px;"><i class="fas fa-bars"></i></button>
+
+        <a class="navbar-brand" href="#">VIOFOOD</a>
+     <ul class="navbar-nav ml auto">
+            <li class="nav-item"><a class="nav-link" href="#"></a></li>
+            
+            <li class="nav-item"><a class="nav-link" href="#">
+            <i class="fa fa-home" aria-hidden="true" style="margin-right:5px;"></i>Cập nhật đơn hàng</a></li>
+            
+        </ul>
+<?php
+    include 'menu.php';
+?>
+    
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 padd-left-0">
@@ -214,7 +212,12 @@
                                                 <button type="button" class="btn btn-primary"
                                                         onclick="cms_save_orders(4)"> Lưu và in
                                                 </button>
-                                                
+                                                <a href="home.php">
+                                                    <button type="button" class="btn btn-primary"
+                                                        onclick="cms_javascript_redirect( cms_javascrip_fullURL() )">
+                                                        Trở về
+													</button>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -227,5 +230,6 @@
         </div>
     </div>
 </section>
-</body>
-</html>
+<?php
+    include 'footer.php';
+?>
