@@ -114,7 +114,7 @@
         
         <!-- Modal footer -->
         <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="updatestoredatail()">Lưu</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="updatestoredatail()">Cập nhật</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
             <input type="hidden" name="" id="hidden-store">
         </div>
@@ -150,6 +150,7 @@
             var idstore= $('#idstore').val();
             var name= $('#name').val();
             var url= $('#url').val();
+            var check=0;
 
             $.ajax({
                 url:"classic/adddata.php",
@@ -160,16 +161,24 @@
                     url: url
                 },
                 success: function(data, status){
+                    alert("Thêm cửa hàng:"+ data); 
                     readRecord();
-                },
+                }, 
             });
         }
 
         function Delete(dataid) {
-
             var conf= confirm("Bạn có chắc chắn muốn xóa? ");
+            
 
             if (conf==true) {
+                if (dataid < 10) {
+                dataid= "L00"+dataid;
+                }
+             else if (dataid < 100) {
+                 dataid= "L0"+dataid;
+            }else dataid= "L"+dataid;
+
                 $.ajax({
                 url:"classic/adddata.php",
                 type:'post',
@@ -184,8 +193,15 @@
         }
         
         function Update(id) {
-            
+            if (id < 10) {
+                id= "L00"+id;
+                }
+             else if (id < 100) {
+                 id= "L0"+id;
+            }else id= "L"+id;
+
             $('#hidden-store').val(id);
+            
             
             $.ajax({
                 url:"classic/adddata.php",
@@ -201,12 +217,30 @@
                 },
                 });
 
-            
-            
-
             $('#up-myModal').modal("show");
             
         }
+        function updatestoredatail() {
+            var upidstore= $('#up-idstore').val();
+            var upname=$('#up-name').val();
+            var upurl=$('#up-url').val();
+            var index=$('#hidden-store').val();
+
+            $.ajax({
+                url:"classic/adddata.php",
+                type:'post',
+                data: {
+                    index:index,
+                    upidstore:upidstore,
+                    upname:upname,
+                    upurl:upurl
+                },
+                success: function(data, status){
+                   readRecord();
+                },
+            });
+        }
+
     </script>
         
 <?php

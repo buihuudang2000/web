@@ -22,7 +22,8 @@
             
             while($row = mysqli_fetch_array($result))
             {
-                $datatocheck= 7;
+                $datatocheck= substr($row['IDstall'],1);
+                $datatocheck= $datatocheck+1-1;
 
                 $data .= '<tr>
                     <td>' . $num . '</td>
@@ -30,10 +31,10 @@
                     <td>' . $row['IDstall'] . '</td>
                     <td>' . $row['name'] . '</td>
                     <td>  
-                        <button onclick="Update(' . $row['id'] . ')" class="btn btn-warning"> <i class="fas fa-edit"></i></button>
+                        <button onclick="Update(' .  $datatocheck . ')" class="btn btn-warning"> <i class="fas fa-edit"></i></button>
                     </td>
                     <td>   
-                        <button onclick="Delete(' . $row['IDstall'] . ')"  class="btn btn-danger"> <i class="far fa-trash-alt"></i></button>
+                        <button onclick="Delete(' . $datatocheck . ')"  class="btn btn-danger"> <i class="far fa-trash-alt"></i></button>
                     </td>
                     </tr>';
                 $num++;
@@ -46,13 +47,14 @@
     if (isset($_POST['name']) && isset($_POST['idstore'])) {
         $query = "INSERT INTO `sto1` (`IDstall`,`name`, `urlStall`)
                 VALUES ('$idstore','$name','$url')";
-
+        
         mysqli_query($con, $query);
 
+        
     }
 
     if (isset($_POST['dataid'])){
-        $idcheck= $_GET['dataid'];
+        $idcheck= $_POST['dataid'];
         $deletequery= "DELETE FROM `sto1` WHERE IDstall= '$idcheck'";
 
         mysqli_query($con, $deletequery);
@@ -63,7 +65,7 @@
 
         $stall_id= $_POST['id'];
 
-        $updatequery= "SELECT * FROM `sto1` WHERE id='$stall_id'";
+        $updatequery= "SELECT * FROM `sto1` WHERE IDstall='$stall_id'";
 
         if (!$result=mysqli_query($con, $updatequery)){
             exit(mysqli_error());
@@ -87,6 +89,18 @@
         $response['status']=200;
         $response['message']="Invaid Request!";
     
+    }
+
+    if (isset($_POST['index'])) {
+        $index= $_POST['index'];
+        $upidstore= $_POST['upidstore'];
+        $upname= $_POST['upname'];
+        $upurl =$_POST['upurl'];
+
+        $query = "UPDATE `sto1` SET `IDstall`='$upidstore',`name`='$upname',`urlStall`='$upurl' WHERE IDstall='$index'";
+        
+        mysqli_query($con, $query);
+        
     }
 
 ?>
