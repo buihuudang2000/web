@@ -100,3 +100,52 @@ echo "</table>";
    $data.='</table>';
    echo $data;
   ?>
+
+<button type="submit" onclick="Update('. $row['IDstall'] .')" class="btn btn-warning"> <i class="fas fa-edit"></i></button>
+
+$('#hidden-store').val(updateid);
+            
+            $.post("classic/adddata.php",
+                {
+                    updateid:updateid
+                },
+                success: function(data, status){
+                    var user= JSON.parse(data)
+                    $('#up-idstore').val(user.IDstall);
+                    $('#up-name').val(user.name);
+                    $('#up-url').val(user.urlStall);
+                }
+            );
+
+            $('#up-myModal').modal("show");
+
+            echo ' <table class="table table-bordered table-striped" >
+        <tr>
+            <th >rfhjgSTT</th>
+            <th >ggfjhk#</th>
+            <th >fhgjMã cửa hàng</th>
+            <th >Tên cửa hàng</th>
+            <th>Chỉnh sửa</th>
+            <th>Xóa</th>
+        </tr>';
+        
+        $stall_id= $_POST['id'];
+
+        $updatequery= "SELECT * FROM `sto1` WHERE id='$stall_id'";
+
+        if (!$result=mysqli_query($con, $updatequery)){
+            exit(mysqli_error());
+        }
+
+        $response= array();
+        
+        if (mysqli_mun_rows($result) >0){
+            while($row=mysqli_fetch_assoc($result)){
+                $response=$row;
+            }
+        } else {
+            $response['status']=200;
+            $response['message']="Data not found!";
+        }
+
+        echo json_encode($response);
