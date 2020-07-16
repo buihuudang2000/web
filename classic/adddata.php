@@ -9,10 +9,9 @@
         <tr>
             <th >STT</th>
             <th >#</th>
-            <th >Mã cửa hàng</th>
             <th >Tên cửa hàng</th>
-            <th>Chỉnh sửa</th>
-            <th>Xóa</th>
+            <th>Cập nhật</th>
+            
         </tr>';
         
         $result= mysqli_query($con,"SELECT * FROM sto1");
@@ -22,19 +21,16 @@
             
             while($row = mysqli_fetch_array($result))
             {
-                $datatocheck= substr($row['IDstall'],1);
-                $datatocheck= $datatocheck+1-1;
+                
 
                 $data .= '<tr>
                     <td>' . $num . '</td>
                     <td><img src="' . $row['urlStall'] . '" width="25"></td>
-                    <td>' . $row['IDstall'] . '</td>
                     <td>' . $row['name'] . '</td>
                     <td>  
-                        <button onclick="Update(' .  $datatocheck . ')" class="btn btn-warning"> <i class="fas fa-edit"></i></button>
-                    </td>
-                    <td>   
-                        <button onclick="Delete(' . $datatocheck . ')"  class="btn btn-danger"> <i class="far fa-trash-alt"></i></button>
+                        <button onclick="Update(' .  $row['IDstall'] . ')" class="btn btn-warning"> <i class="fas fa-edit"></i></button>
+                     
+                        <button onclick="Delete(' . $row['IDstall'] . ')"  class="btn btn-danger"> <i class="far fa-trash-alt"></i></button>
                     </td>
                     </tr>';
                 $num++;
@@ -44,12 +40,22 @@
         echo $data;
     }
 
-    if (isset($_POST['name']) && isset($_POST['idstore'])) {
-        $query = "INSERT INTO `sto1` (`IDstall`,`name`, `urlStall`)
-                VALUES ('$idstore','$name','$url')";
-        
-        mysqli_query($con, $query);
+    if (isset($_POST['name'])  && isset($_POST['url']) ) {
+        $name=$_POST['name'];
+        $url=$_POST['url'];
 
+        if ($name != "" && $url != "") {
+        $query = "INSERT INTO `sto1` (`IDstall`,`name`, `urlStall`)
+                VALUES (NULL,'$name','$url')";
+
+        $result=mysqli_query($con, "SELECT * FROM `sto1` WHERE name='$name'");
+        if (mysqli_num_rows($result) >0){
+            echo 'Cửa hàng đã tồn tại';
+        } else {
+            mysqli_query($con, $query);
+            echo 'Đã thêm ';
+        }
+        } else echo 'Thêm thất bại, bạn phải điền đủ các thông tin '; 
         
     }
 
@@ -93,14 +99,20 @@
 
     if (isset($_POST['index'])) {
         $index= $_POST['index'];
-        $upidstore= $_POST['upidstore'];
         $upname= $_POST['upname'];
         $upurl =$_POST['upurl'];
+        if ($upname != "" && $upurl != "") {
+           
+            $query = "UPDATE `sto1` SET `name`='$upname',`urlStall`='$upurl' WHERE IDstall='$index'";
+            $result=mysqli_query($con, "SELECT * FROM `sto1` WHERE name='$upname' AND IDstall != '$index' ");
+            if (mysqli_num_rows($result) >0){
+                echo 'Cửa hàng đã tồn tại';
+            } else {
+                mysqli_query($con, $query);
+                echo 'Đã cập nhật';
+            }
+        } else echo 'Cập nhật thất bại, bạn phải điền đủ các thông tin '; 
 
-        $query = "UPDATE `sto1` SET `IDstall`='$upidstore',`name`='$upname',`urlStall`='$upurl' WHERE IDstall='$index'";
-        
-        mysqli_query($con, $query);
-        
     }
 
 ?>

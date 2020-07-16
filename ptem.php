@@ -149,3 +149,6 @@ $('#hidden-store').val(updateid);
         }
 
         echo json_encode($response);
+
+        $query = "INSERT INTO `foo1`(`IDfood`, `name`, `IDstall`, `price`, `url`, `stallname`)
+                VALUES (NULL,'$name','$idstore','$price','$url', '$namestore')";

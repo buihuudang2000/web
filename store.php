@@ -49,11 +49,13 @@
         
         <!-- Modal body -->
         <div class="modal-body" >
+        <!--
           <form class="form-group" action="">
               <label> Mã cửa hàng:</label>
               <input type="text" class="form-control" name="idstore" id="idstore" placeholder="Ví dụ: L001">
 
           </form>
+          -->
           <form class="form-group" action="">
               <label> Tên cửa hàng:</label>
               <input type="text" class="form-control" name="name" id="name" placeholder="Ví dụ: KFC">
@@ -95,11 +97,13 @@
         
         <!-- Modal body -->
         <div class="modal-body" >
+        <!--
           <form class="form-group" action="">
               <label for="up-idstore"> Mã cửa hàng:</label>
               <input type="text" class="form-control" name="idstore" id="up-idstore" placeholder="Ví dụ: L001">
 
           </form>
+          -->
           <form class="form-group" action="">
               <label for="up-name"> Tên cửa hàng:</label>
               <input type="text" class="form-control" name="name" id="up-name" placeholder="Ví dụ: KFC">
@@ -147,21 +151,19 @@
         }
 
         function addRecord(){
-            var idstore= $('#idstore').val();
+            
             var name= $('#name').val();
             var url= $('#url').val();
-            var check=0;
-
+            
             $.ajax({
                 url:"classic/adddata.php",
                 type:'post',
                 data: {
-                    idstore: idstore,
                     name:name,
                     url: url
                 },
                 success: function(data, status){
-                    alert("Thêm cửa hàng:"+ data); 
+                    alert(data);
                     readRecord();
                 }, 
             });
@@ -169,16 +171,7 @@
 
         function Delete(dataid) {
             var conf= confirm("Bạn có chắc chắn muốn xóa? ");
-            
-
-            if (conf==true) {
-                if (dataid < 10) {
-                dataid= "L00"+dataid;
-                }
-             else if (dataid < 100) {
-                 dataid= "L0"+dataid;
-            }else dataid= "L"+dataid;
-
+            if (conf==true){
                 $.ajax({
                 url:"classic/adddata.php",
                 type:'post',
@@ -193,12 +186,6 @@
         }
         
         function Update(id) {
-            if (id < 10) {
-                id= "L00"+id;
-                }
-             else if (id < 100) {
-                 id= "L0"+id;
-            }else id= "L"+id;
 
             $('#hidden-store').val(id);
             
@@ -211,7 +198,6 @@
                 },
                 success: function(data, status){
                     var user= JSON.parse(data);
-                    $('#up-idstore').val(user.IDstall);
                     $('#up-name').val(user.name);
                     $('#up-url').val(user.urlStall);
                 },
@@ -221,7 +207,6 @@
             
         }
         function updatestoredatail() {
-            var upidstore= $('#up-idstore').val();
             var upname=$('#up-name').val();
             var upurl=$('#up-url').val();
             var index=$('#hidden-store').val();
@@ -231,11 +216,11 @@
                 type:'post',
                 data: {
                     index:index,
-                    upidstore:upidstore,
                     upname:upname,
                     upurl:upurl
                 },
                 success: function(data, status){
+                    alert(data);
                    readRecord();
                 },
             });
