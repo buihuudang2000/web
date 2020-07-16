@@ -1,5 +1,6 @@
 <?php
     include 'config/config.php';
+    $saveob=$_SESSION['object'];
     
 ?>
 <!DOCTYPE html>
@@ -21,8 +22,11 @@
     <body >
     
     <nav class="navbar navbar-expand-sm  navbar-dark" style="background: #040b2b ;">
-    <button class="btn btn-dark" type="submit" onclick="actionmenu()" style="margin-right:5px;"><i class="fas fa-bars"></i></button>
-
+    <?php
+        
+        echo '<button onclick="actionmenu('.$saveob.')" class="btn btn-dark"
+        style="margin-right:5px;"><i class="fas fa-bars"></i></button>';
+    ?>
         <a class="navbar-brand" href="#">VIOFOOD</a>
         
         <ul class="navbar-nav ml auto">
@@ -70,10 +74,27 @@
         </div>
         <div class="">
             <h6>THANH TOÁN * CẬP NHẬT DANH SÁCH * QUẢN LÍ TÀI KHOẢN * BÁO CÁO</h4>
+            
         </div>
         </div>
+        
 
-        <script type="text/javascript" src="js/homepage.js"></script>
+        <script type="text/javascript" >
+        function actionmenu(ob) {
+        // in home.html
+        if (document.getElementById("menu").style.display=="none"){
+             document.getElementById("menu").style.display= "block";
+             if (ob==4) alert("Chào Bạn! Bạn chỉ có thể truy cập vào trang cập nhật đơn hàng.");
+             else
+             if (ob==3) alert("Chào Bạn! Bạn chỉ có thể truy cập vào trang thanh toán.");
+        }
+         else {
+             document.getElementById("menu").style.display= "none";
+             
+         }
+   
+        }
+        </script>
         
     </body>
 </html>

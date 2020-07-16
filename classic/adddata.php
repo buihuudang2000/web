@@ -10,6 +10,7 @@
             <th >STT</th>
             <th >#</th>
             <th >Tên cửa hàng</th>
+            <th >Mã cửa hàng</th>
             <th>Cập nhật</th>
             
         </tr>';
@@ -27,6 +28,7 @@
                     <td>' . $num . '</td>
                     <td><img src="' . $row['urlStall'] . '" width="25"></td>
                     <td>' . $row['name'] . '</td>
+                    <td>' . $row['IDstall'] . '</td>
                     <td>  
                         <button onclick="Update(' .  $row['IDstall'] . ')" class="btn btn-warning"> <i class="fas fa-edit"></i></button>
                      

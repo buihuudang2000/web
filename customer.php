@@ -138,7 +138,7 @@
             var readrecord= "readrecord";
 
             $.ajax({
-                url:"classic/adddata.php",
+                url:"classic/addcustomer.php",
                 type:'post',
                 data: {
                     readrecord:readrecord
@@ -149,30 +149,11 @@
             });
         }
 
-        function addRecord(){
-            
-            var name= $('#name').val();
-            var url= $('#url').val();
-            
-            $.ajax({
-                url:"classic/adddata.php",
-                type:'post',
-                data: {
-                    name:name,
-                    url: url
-                },
-                success: function(data, status){
-                    alert(data);
-                    readRecord();
-                }, 
-            });
-        }
-
         function Delete(dataid) {
             var conf= confirm("Bạn có chắc chắn muốn xóa? ");
             if (conf==true){
                 $.ajax({
-                url:"classic/adddata.php",
+                url:"classic/addcustomer.php",
                 type:'post',
                 data: {
                     dataid:dataid
@@ -184,46 +165,7 @@
             }
         }
         
-        function Update(id) {
-
-            $('#hidden-store').val(id);
-            
-            
-            $.ajax({
-                url:"classic/adddata.php",
-                type:'post',
-                data: {
-                    id:id
-                },
-                success: function(data, status){
-                    var user= JSON.parse(data);
-                    $('#up-name').val(user.name);
-                    $('#up-url').val(user.urlStall);
-                },
-                });
-
-            $('#up-myModal').modal("show");
-            
-        }
-        function updatestoredatail() {
-            var upname=$('#up-name').val();
-            var upurl=$('#up-url').val();
-            var index=$('#hidden-store').val();
-
-            $.ajax({
-                url:"classic/adddata.php",
-                type:'post',
-                data: {
-                    index:index,
-                    upname:upname,
-                    upurl:upurl
-                },
-                success: function(data, status){
-                    alert(data);
-                   readRecord();
-                },
-            });
-        }
+       
 
     </script>
         

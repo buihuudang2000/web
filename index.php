@@ -8,15 +8,13 @@ if(isset($_POST['but_submit'])){
     $password = mysqli_real_escape_string($con,$_POST['txt_pwd']);
 
     if ($uname != "" && $password != ""){
-
-        $sql_query = "select count(*) as cntUser from staff where email='".$uname."' and password='".$password."'";
+		
+        $sql_query = "select * from staff where email='$uname' and password='$password'";
         $result = mysqli_query($con,$sql_query);
         $row = mysqli_fetch_array($result);
 
-        $count = $row['cntUser'];
-
-        if($count > 0){
-            $_SESSION['uname'] = $uname;
+        if(mysqli_num_rows($result) >0){
+            $_SESSION['object'] = $row['Object'];
             header('Location: homepage.php');
         }else{
             echo "Invalid email and password";

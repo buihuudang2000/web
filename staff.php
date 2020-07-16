@@ -1,7 +1,7 @@
 <?php
     include 'config/config.php';
     include 'header.php';
-    
+
     
 ?>
      <ul class="navbar-nav ml auto">
@@ -51,29 +51,45 @@
 
           <form class="form-group" action="">
               <label> Tên nhân viên:</label>
-              <input type="text" class="form-control" name="name" id="name" placeholder="Ví dụ: KFC">
+              <input type="text" class="form-control" name="name" id="name" placeholder="Ví dụ: Nguyên Văn A">
 
           </form>
           <form class="form-group" action="">
               <label> Email:</label>
-              <input type="text" class="form-control" name="email" id="email" placeholder="Ví dụ: KFC">
+              <input type="email" class="form-control" name="email" id="email" placeholder="Ví dụ: A@gmail.com">
 
           </form>
           <form class="form-group" action="">
-              <label> Pass:</label>
-              <input type="text" class="form-control" name="pass" id="pass" placeholder="Ví dụ: KFC">
+              <label> Mật khẩu:</label>
+              <input type="password" class="form-control" name="pass" id="pass" placeholder="Ví dụ: abc456">
+          </form>
+          <form class="form-group" action="">
+              <label>Nhập lại mật khẩu:</label>
+              <input type="password" class="form-control" name="confpass" id="confpass" placeholder="Ví dụ: abc456">
 
           </form>
           <form class="form-group" action="">
-              <label> Vị trí:</label>
-              <input type="url" class="form-control" name="ob" id="ob" placeholder="Ví dụ: http://www.kfc.com/home">
+              <label> Số điện thoại:</label>
+              <input type="text" class="form-control" name="ph" id="ph" placeholder="Ví dụ: 0998645">
 
           </form>
           <form class="form-group" action="">
-              <label> Cửa hàng làm việc:</label>
-              <input type="text" class="form-control" name="stall" id="stall" placeholder="Ví dụ: KFC">
+            <label> Vị trí:</label>
+            <select class="form-control" id="ob">
+            <option value="1">Admin</option>
+            <option value="2">Quản lí</option>
+            <option value="3">Nhân viên</option>
+            </select>
 
           </form>
+          <form class="form-group" action="">
+          <label> Cửa hàng làm việc:</label>
+            <select class="form-control" id="idstore">
+            <?php $result = mysqli_query($con,"SELECT * FROM sto1");
+             while($rowstore = mysqli_fetch_array($result)) { ?>
+            <option value="<?php echo $rowstore['IDstall']; ?>"><?php echo $rowstore['name']; ?></option>
+            <?php } ?>
+            </select>
         </div>
         
         <!-- Modal footer -->
@@ -89,6 +105,53 @@
 
 
   <!--Update -->
+  <div class="modal" id="up-myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Thay đổi thông tin thành viên</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body" >
+          <form class="form-group" action="">
+              <label> Số điện thoại:</label>
+              <input type="text" class="form-control" name="up-ph" id="up-ph" placeholder="Ví dụ: 0998645">
+
+          </form>
+          <form class="form-group" action="">
+            <label> Vị trí:</label>
+            <select class="form-control" id="up-ob">
+            <option value="1">Admin</option>
+            <option value="2">Quản lí</option>
+            <option value="3">Nhân viên</option>
+            </select>
+
+          </form>
+          <form class="form-group" action="">
+          <label> Cửa hàng làm việc:</label>
+            <select class="form-control" id="up-idstore">
+            <?php $result = mysqli_query($con,"SELECT * FROM sto1");
+             while($rowstore = mysqli_fetch_array($result)) { ?>
+            <option value="<?php echo $rowstore['IDstall']; ?>"><?php echo $rowstore['name']; ?></option>
+            <?php } ?>
+            </select>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="updateuserdatail()">Cập nhật</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+            <input type="hidden" name="" id="iduser">
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
 
 
 
@@ -115,20 +178,30 @@
         function addRecord(){
             
             var name= $('#name').val();
-            var url= $('#url').val();
-            
+            var email= $('#email').val();
+            var pass= $('#pass').val();
+            var cofpass= $('#confpass').val();
+            var ob= $('#ob').val();
+            var idstore= $('#idstore').val();
+            var ph= $('#ph').val();
+            if (pass == cofpass) {
             $.ajax({
                 url:"classic/addstaff.php",
                 type:'post',
                 data: {
                     name:name,
-                    url: url
+                    email:email,
+                    pass:pass,
+                    ob:ob,
+                    idstore:idstore,
+                    ph:ph
                 },
                 success: function(data, status){
                     alert(data);
                     readRecord();
                 }, 
             });
+            } else alert('Nhập lại mật khẩu không trùng khớp');
         }
 
         function Delete(dataid) {
@@ -149,7 +222,7 @@
         
         function Update(id) {
 
-            $('#hidden-store').val(id);
+            $('#iduser').val(id);
             
             
             $.ajax({
@@ -160,26 +233,29 @@
                 },
                 success: function(data, status){
                     var user= JSON.parse(data);
-                    $('#up-name').val(user.name);
-                    $('#up-url').val(user.urlStall);
+                    $('#up-ph').val(user.phone);
+                    $('#up-idstore').val(user.IDstall);
+                    $('#up-ob').val(user.Object);
                 },
                 });
 
             $('#up-myModal').modal("show");
             
         }
-        function updatestoredatail() {
-            var upname=$('#up-name').val();
-            var upurl=$('#up-url').val();
-            var index=$('#hidden-store').val();
+        function updateuserdatail() {
+            var upph=$('#up-ph').val();
+            var upob=$('#up-ob').val();
+            var upidstore=$('#up-idstore').val();
+            var index=$('#iduser').val();
 
             $.ajax({
                 url:"classic/addstaff.php",
                 type:'post',
                 data: {
                     index:index,
-                    upname:upname,
-                    upurl:upurl
+                    upob:upob,
+                    upidstore:upidstore,
+                    upph:upph
                 },
                 success: function(data, status){
                     alert(data);
@@ -192,4 +268,5 @@
         
 <?php
     include 'footer.php';
+    
 ?>

@@ -86,7 +86,6 @@
           <form class="form-group" action="">
               <label> Đường dẫn hình ảnh (URL):</label>
               <input type="url" class="form-control" name="url" id="url" placeholder="Ví dụ: http://www.kfc.com/home">
-
           </form>
         </div>
         
