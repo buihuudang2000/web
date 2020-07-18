@@ -47,6 +47,47 @@
     }
     } 
 
+    if (isset($_POST['pager'])){
+        $data= ' <table class="table table-bordered table-striped" >
+        <tr>
+            <th >Mã đơn hàng</th>
+            <th >Thời gian</th>
+            <th >Số món</th>
+            <th >Giá bán</th>
+            <th >Trạng thái đơn hàng</th>
+            <th>ID Pager</th>
+            <th>Cập nhật</th>
+            
+        </tr>';
+       
+            $temp=mysqli_query($con,"SELECT * FROM orders WHERE status='1' AND idpager!='0'");
+            if (mysqli_num_rows($temp) >0){
+            $num=0;
+            
+            while($row = mysqli_fetch_array($temp))
+            {
+                
+               
+                $data .= '<tr>
+                    <td>' . $row['IDorder'] . '</td>
+                    <td>' . $row['date'] . '</td>
+                    <td>' . $row['total'] . '</td>
+                    <td>' . $row['total-price'] . '</td>
+                    <th >Đã hoàn thành</th>
+                    <td>' . $row['idpager'] . '</td>
+                    <td>
+                        <button onclick="Update(' . $row['IDorder'] . ')"  class="btn btn-warning"> Đã nhận pager</button>
+                    </td>
+                    </tr>';
+                
+            }
+            }
+        
+      
+        $data.='</table>';
+        echo $data;
+    }
+
     if (isset($_POST['total1'])){
         
         if ( $_POST['total1'] != "") {
@@ -65,6 +106,23 @@
         
     } 
 
-    
+    if (isset($_POST['dataid'])){
+        $idcheck= $_POST['dataid'];
+
+        $upquery1= "UPDATE `orders` SET `idpager`='0' WHERE IDorder='$idcheck'";
+
+        mysqli_query($con, $upquery1);
+        
+    }
+
+    if (isset($_POST['save'])){
+        $idcheck= $_POST['save'];
+
+        $upquery1= "UPDATE `orders` SET `status`='0' WHERE IDorder='$idcheck'";
+
+        mysqli_query($con, $upquery1);
+        echo 'Đã cập nhật';
+        
+    }
 
 ?>

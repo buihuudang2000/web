@@ -80,7 +80,7 @@
                                             <th >Giá bán</th>
                                             <th >Thành tiền</th>
             
-                                            </tr>'
+                                            </tr>
                                             </thead>
                                             <tbody id="pro_search_append">
                                             </tbody>
@@ -89,6 +89,18 @@
                                         
                                         
                                         <div class="alert alert-success" style="margin-top: 30px;" role="alert">Gõ mã đơn hàng hộp tìm kiếm để tiến hành thanh toán
+                                        </div>
+
+                                        <div>
+                                            <h2></h2>
+                                            <div>
+                                            
+                                            <label style="font-size:20px;">Đơn hàng đã hoàn thành (call):</label>
+                                            <button type="submit" onclick="CheckPager()" class="btn btn-primary">Cập nhật trạng thái</button>
+                                            
+                                            <div id="records-contant"></div>
+                                           
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +139,8 @@
                                                         </div>
                                                     </div>
                                                 -->
-                                                    <div class="form-group marg-bot-10 clearfix">
+
+                                                <div class="form-group marg-bot-10 clearfix">
                                                         <div style="padding:0px" class="col-md-4">
                                                             <label>Nhân viên bán hàng</label>
                                                         </div>
@@ -138,6 +151,17 @@
                                                                     <option value=""><?php echo $_SESSION['uname']; ?></option>
                                                                 
                                                             </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group marg-bot-10 clearfix">
+                                                    <div style="padding:0px" class="col-md-4">
+                                                            <label>ID Pager</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" id="pager" 
+                                                                   class="form-control "
+                                                                   placeholder="Nhập ID Pager" style="border-radius: 0 !important;">
                                                         </div>
                                                     </div>
                                                     <div class="form-group marg-bot-10 clearfix">
@@ -210,7 +234,7 @@
                                                             <label>Khách đã thanh toán</label>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <input type="text" onkeyup="Plus(this.value)"
+                                                            <input type="text" id="payment" onkeyup="Plus(this.value)"
                                                                    class="form-control text-right txtMoney customer-pay"
                                                                    placeholder="0" style="border-radius: 0 !important;">
                                                         </div>
@@ -229,7 +253,7 @@
                                         <div class="col-md-12">
                                             <div class="btn-groups pull-right" style="margin-bottom: 50px;">
                                                 <button type="button" class="btn btn-primary"
-                                                        onclick="cms_save_orders(3)"> Lưu 
+                                                        onclick="save()"> Lưu 
                                                 </button>
                                                 <button type="button" class="btn btn-primary"
                                                         onclick="cms_save_orders(4)"> Lưu và in
@@ -264,6 +288,8 @@
                 },
             });
 
+            
+            var kh=0;
             $.ajax({
                 url:"classic/addpayment.php",
                 type:'post',
@@ -273,6 +299,11 @@
                 success: function(data, status){
                     
                     $('#hidden-price').val(data);
+                    $('#voucher').val(kh);
+                    $('#payment').val(kh);
+                    $('#total').val(data);
+                    $('#total-after-discount').html(data);
+                    $('#debt').html(data);
                     if (data=="") $('#total-money').html("0"); else $('#total-money').html(data);
                     
                 },
@@ -280,6 +311,21 @@
             
             
         }
+
+        function CheckPager(){
+            var readrecord="dfdg";
+        $.ajax({
+                url:"classic/addpayment.php",
+                type:'post',
+                data: {
+                    pager:readrecord
+                },
+                success: function(data, status){
+                    $('#records-contant').html(data);
+                },
+            });
+        }
+
         function Less(value) {
 
             var data1=$('#hidden-price').val()-value;
@@ -291,12 +337,42 @@
         function Plus(value) {
 
             var data2=value-$('#total').val();
-            if (data2 > 0) $('#debtlabel').html("Khách thừa");
-            if (data2 < 0) $('#debt').html(-data2); else
+            if (data2 < 0) $('#debt').html(-data2); else {
             $('#debt').html(data2);
+            $('#debtlabel').html("Khách thừa");
+            }
         }
 
-        
+        function Update(dataid) {
+            var conf= confirm("Khách đã nhận đơn? ");
+            if (conf==true){
+                $.ajax({
+                url:"classic/addpayment.php",
+                type:'post',
+                data: {
+                    dataid:dataid
+                },
+                success: function(data, status){
+                    CheckPager();
+                },
+                });
+            }
+        }
+
+        function save() {
+            var save=$('#search-pro-box').val();
+            $.ajax({
+                url:"classic/addpayment.php",
+                type:'post',
+                data: {
+                    save:save
+                },
+                success: function(data, status){
+                    alert(data);
+                },
+                });
+        }
+
     </script>
 
 </body>
