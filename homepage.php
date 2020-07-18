@@ -59,7 +59,7 @@
                         <li><a href="customer.php">Khách hàng</a></li>
                         <li><a href="staff.php">Nhân viên</a></li>
                         <li><a href="store.php">Cửa hàng</a></li>
-                        <li><a href="inventory.php">Kho hàng</a></li>
+                        
                         
                         
                     </ul>

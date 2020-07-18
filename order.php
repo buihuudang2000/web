@@ -22,8 +22,27 @@
   <div>
   <h2></h2>
   <div>
-  <h4>Đơn hàng chưa hoàn thành:</h4>
-  <div id="notrecords-contant"></div>
+  <form class="form-inline" action="">
+  <h4 style="margin-right:20px;">Đơn hàng chưa hoàn thành:</h4>
+  <select class="form-control mr-sm-2" id="show-store">
+    <?php if ($_SESSION['object']==1) { ?>
+        <option value="">Cửa hàng</option>
+    <?php } ?>
+        <?php $result = mysqli_query($con,"SELECT * FROM sto1");
+        while($row = mysqli_fetch_array($result)){ 
+           if ($_SESSION['object']=='1') {?>
+        <option
+        value="<?php echo $row['IDstall']; ?>"><?php echo $row['name']; ?></option>
+        <?php } else if ($_SESSION['idst'] == $row['IDstall'] && $_SESSION['object'] !='1' ) { ?>
+            <option value="<?php echo $row['IDstall']; ?>"><?php echo $row['name']; ?></option>
+        <?php }
+        } ?>
+   </select>
+   <?php if ($_SESSION['object']==1) { ?>
+   <button type="button" class="btn btn-primary" onclick="readRecord()">Lọc</button>
+   <?php } ?>
+   </form>
+  <div id="notrecords-contant"  style="margin-top:10px;"></div>
   
   </div>
   </div>
@@ -74,11 +93,14 @@
        
     <script type="text/javascript">
     
-        $(document).ready(function(){readRecord();});
+        $(document).ready(function(){
+            readRecord();}
+            );
+
 
         function readRecord(){
-            var notreadrecord= "notreadrecord";
-            var readrecord= "readrecord";
+            
+            var readrecord = $('#show-store').val();
 
             $.ajax({
                 url:"classic/addorder.php",

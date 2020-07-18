@@ -6,7 +6,7 @@
 
     if (isset($_POST['readrecord'])){
         $idshow=$_POST['readrecord'];
-        $data= ' <table class="table table-bordered table-striped" >
+        $data= ' <table class="table table-bordered table-striped " >
         <tr>
             <th >STT</th>
             <th >#</th>

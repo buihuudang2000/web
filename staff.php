@@ -117,6 +117,20 @@
         
         <!-- Modal body -->
         <div class="modal-body" >
+        <form class="form-group" action="">
+              <label> Tên nhân viên:</label>
+              <input type="text" class="form-control" name="up-name" id="up-name" placeholder="Ví dụ: Nguyên Văn A">
+
+          </form>
+          <form class="form-group" action="">
+              <label> Email:</label>
+              <input type="email" class="form-control" name="up-email" id="up-email" placeholder="Ví dụ: A@gmail.com">
+
+          </form>
+          <form class="form-group" action="">
+              <label> Mật khẩu:</label>
+              <input type="password" class="form-control" name="up-pass" id="up-pass" placeholder="Ví dụ: abc456">
+          </form>
           <form class="form-group" action="">
               <label> Số điện thoại:</label>
               <input type="text" class="form-control" name="up-ph" id="up-ph" placeholder="Ví dụ: 0998645">
@@ -234,6 +248,9 @@
                 },
                 success: function(data, status){
                     var user= JSON.parse(data);
+                    $('#up-name').val(user.name);
+                    $('#up-email').val(user.email);
+                    $('#up-pass').val(user.password);
                     $('#up-ph').val(user.phone);
                     $('#up-idstore').val(user.IDstall);
                     $('#up-ob').val(user.Object);
@@ -244,6 +261,9 @@
             
         }
         function updateuserdatail() {
+            var upname=$('#up-name').val();
+            var upemail=$('#up-email').val();
+            var uppass=$('#up-pass').val();
             var upph=$('#up-ph').val();
             var upob=$('#up-ob').val();
             var upidstore=$('#up-idstore').val();
@@ -256,7 +276,10 @@
                     index:index,
                     upob:upob,
                     upidstore:upidstore,
-                    upph:upph
+                    upph:upph,
+                    upname:upname,
+                    uppass:uppass,
+                    upemail:upemail
                 },
                 success: function(data, status){
                     alert(data);

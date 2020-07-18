@@ -114,13 +114,17 @@
     }
 
     if (isset($_POST['index'])) {
+        
         $index= $_POST['index'];
         $upph= $_POST['upph'];
         $upob =$_POST['upob'];
         $upidstore=$_POST['upidstore'];
+        $upname= $_POST['upname'];
+        $uppass= $_POST['uppass'];
+        $upemail =$_POST['upemail'];
         
            
-        $query = "UPDATE `staff` SET `phone`='$upph',`Object`='$upob', `IDstall`='$upidstore' WHERE ID='$index'";
+        $query = "UPDATE `staff` SET `name`='$upname',`email`='$upemail',`password`='$uppass', `phone`='$upph',`Object`='$upob', `IDstall`='$upidstore' WHERE ID='$index'";
            
             
         mysqli_query($con, $query);

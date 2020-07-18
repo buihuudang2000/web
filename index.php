@@ -14,7 +14,10 @@ if(isset($_POST['but_submit'])){
         $row = mysqli_fetch_array($result);
 
         if(mysqli_num_rows($result) >0){
-            $_SESSION['object'] = $row['Object'];
+			$_SESSION=array();
+			$_SESSION['object'] = $row['Object'];
+			$_SESSION['idst'] = $row['IDstall'];
+			$_SESSION['uname'] = $row['email'];
             header('Location: homepage.php');
         }else{
             echo "Invalid email and password";

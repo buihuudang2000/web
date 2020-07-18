@@ -16,9 +16,8 @@
             }
         }
       
-
-
     if (isset($_POST['notreadrecord'])){
+        $idstore=$_POST['notreadrecord'];
         $data= ' <table class="table table-bordered table-striped" >
         <tr>
             <th >Mã đơn hàng</th>
@@ -30,8 +29,9 @@
             <th>Cập nhật</th>
             
         </tr>';
-       
-            $temp=mysqli_query($con,"SELECT * FROM orders WHERE status='0'");
+            if ($idstore=="") $temp=mysqli_query($con,"SELECT * FROM orders WHERE status='0'");
+            else $temp=mysqli_query($con,"SELECT * FROM orders WHERE status='0' AND IDstall='$idstore'");
+
             if (mysqli_num_rows($temp) >0){
             $num=0;
             

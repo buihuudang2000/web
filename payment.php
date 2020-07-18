@@ -1,3 +1,8 @@
+<?php
+    include 'config/config.php';
+    $money=0;
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +12,15 @@
     <link href="css\payment\font-awesome.min.css" rel="stylesheet">
     <link href="css\payment\style.css" rel="stylesheet">
     <link href="css\payment\jquery-ui.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css\homepage.css">
 
-    <script src="https://kit.fontawesome.com/a00706d209.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/a00706d209.js" crossorigin="anonymous"></script>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        
+        
+
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap');
         .title{
@@ -51,27 +63,32 @@
                             <div class="orders-act">
                                 <div class="col-md-8">
                                     <div class="order-search" style="margin: 10px 0px; position: relative;">
-                                        <input type="text" class="form-control"
-                                               placeholder="Nhập mã sản phẩm hoặc tên sản phẩm"
+                                        <input type="text" class="form-control" onkeyup="showResult(this.value)"
+                                               placeholder="Nhập mã đơn hàng"
                                                id="search-pro-box">
+                                               
+                                               
                                     </div>
                                     <div class="product-results">
-                                        <table class="table table-bordered table-striped">
+                                    <table class="table table-bordered table-striped">
                                             <thead>
                                             <tr>
-                                                <th class="text-center">STT</th>
-                                                <th>Mã hàng</th>
-                                                <th>Tên sản phẩm</th>
-                                                <th class="text-center">Số lượng</th>
-                                                <th class="text-center">Giá bán</th>
-                                                <th class="text-center">Thành tiền</th>
-                                                <th></th>
-                                            </tr>
+                                            <th >STT</th>
+                                            <th>#</th>
+                                            <th>Tên món ăn</th>
+                                            <th >Số lượng</th>
+                                            <th >Giá bán</th>
+                                            <th >Thành tiền</th>
+            
+                                            </tr>'
                                             </thead>
                                             <tbody id="pro_search_append">
                                             </tbody>
-                                        </table>
-                                        <div class="alert alert-success" style="margin-top: 30px;" role="alert">Gõ mã hoặc tên sản phẩm vào hộp tìm kiếm để thêm hàng vào đơn hàng
+                                            </table>
+                                        
+                                        
+                                        
+                                        <div class="alert alert-success" style="margin-top: 30px;" role="alert">Gõ mã đơn hàng hộp tìm kiếm để tiến hành thanh toán
                                         </div>
                                     </div>
                                 </div>
@@ -81,6 +98,7 @@
                                             <div class="morder-info" style="padding: 4px;">
                                                 <div class="tab-contents" style="padding: 8px 6px;">
                                                     <div class="form-group marg-bot-10 clearfix">
+                                                    <!--
                                                         <div style="padding:0px" class="col-md-4">
                                                             <label>Khách hàng</label>
                                                         </div>
@@ -108,17 +126,17 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                -->
                                                     <div class="form-group marg-bot-10 clearfix">
                                                         <div style="padding:0px" class="col-md-4">
                                                             <label>Nhân viên bán hàng</label>
                                                         </div>
                                                         <div class="col-md-8">
                                                             <select class="form-control" id="sale_id">
-                                                                <option value="">Lựa chọn nhân viên bán hàng</option>
-                                                                <?php foreach ($data['sale'] as $item) { ?>
-                                                                    <option
-                                                                        value="<?php echo $item['id']; ?>"><?php echo $item['display_name']; ?></option>
-                                                                <?php } ?>
+                                                                
+                                                               
+                                                                    <option value=""><?php echo $_SESSION['uname']; ?></option>
+                                                                
                                                             </select>
                                                         </div>
                                                     </div>
@@ -160,9 +178,10 @@
                                                             <label>Tiền hàng</label>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <div class="total-money">
-                                                                0
+                                                            <div id="total-money">
+                                                            0
                                                             </div>
+                                                            <input type="hidden" name="" id="hidden-price">
                                                         </div>
                                                     </div>
                                                     <div class="form-group marg-bot-10 clearfix">
@@ -170,7 +189,7 @@
                                                             <label>Giảm giá</label>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <input type="text"
+                                                            <input type="text" id="voucher" onkeyup="Less(this.value)"
                                                                    class="form-control text-right txtMoney discount-order"
                                                                    placeholder="0" style="border-radius: 0 !important;">
                                                         </div>
@@ -180,9 +199,10 @@
                                                             <label>Tổng cộng</label>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <div class="total-after-discount">
+                                                            <div id="total-after-discount">
                                                                 0
                                                             </div>
+                                                            <input type="hidden" name="" id="total">
                                                         </div>
                                                     </div>
                                                     <div class="form-group marg-bot-10 clearfix">
@@ -190,17 +210,17 @@
                                                             <label>Khách đã thanh toán</label>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <input type="text"
+                                                            <input type="text" onkeyup="Plus(this.value)"
                                                                    class="form-control text-right txtMoney customer-pay"
                                                                    placeholder="0" style="border-radius: 0 !important;">
                                                         </div>
                                                     </div>
                                                     <div class="form-group marg-bot-10 clearfix">
                                                         <div class="col-md-4">
-                                                            <label class="debt">Khách còn nợ</label>
+                                                            <label id="debtlabel">Khách còn nợ</label>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <div class="debt">0</div>
+                                                            <div id="debt">0</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -227,5 +247,57 @@
         </div>
     </div>
 </section>
+
+<script type="text/javascript">
+
+        $(document).ready(function(){showResult();});
+
+        function showResult(readrecord){
+            $.ajax({
+                url:"classic/addpayment.php",
+                type:'post',
+                data: {
+                    readrecord:readrecord
+                },
+                success: function(data, status){
+                    $('#pro_search_append').html(data);
+                },
+            });
+
+            $.ajax({
+                url:"classic/addpayment.php",
+                type:'post',
+                data: {
+                    total1:readrecord
+                },
+                success: function(data, status){
+                    
+                    $('#hidden-price').val(data);
+                    if (data=="") $('#total-money').html("0"); else $('#total-money').html(data);
+                    
+                },
+            });
+            
+            
+        }
+        function Less(value) {
+
+            var data1=$('#hidden-price').val()-value;
+            if (data1<0) data1=0;
+            $('#total').val(data1);
+            $('#total-after-discount').html(data1);
+            $('#debt').html(data1);
+        }
+        function Plus(value) {
+
+            var data2=value-$('#total').val();
+            if (data2 > 0) $('#debtlabel').html("Khách thừa");
+            if (data2 < 0) $('#debt').html(-data2); else
+            $('#debt').html(data2);
+        }
+
+        
+    </script>
+
 </body>
 </html>
