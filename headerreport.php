@@ -3,7 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <title>Food Court Management</title>
-
+        <link href="css\payment\bootstrap.min.css" rel="stylesheet">
+        <link href="css\payment\font-awesome.min.css" rel="stylesheet">
+        <link href="css\payment\style.css" rel="stylesheet">
+        <link href="css\payment\jquery-ui.min.css" rel="stylesheet">
+        <link href="css\payment\bootstrap-datepicker.css" rel="stylesheet">
+        <link href="css\payment\bootstrap-datepicker.min.css" rel="stylesheet">
+        
+        <link href="css\payment\jquery.datetimepicker.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css\homepage.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 

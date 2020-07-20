@@ -58,14 +58,20 @@
 
         if ($name != "" && $url != "" && $idstore != "" && $price!= "") {
             
-         
+            $temp=$idstore;
              $result = mysqli_query($con,"SELECT * FROM sto1");
              while($row = mysqli_fetch_array($result)) { 
-                if ($row['IDstall']===$idstore) $namestore=$row['name'];
+                if ($row['IDstall']==$temp) $namestore=$row['name'];
              } ;
-
+             if ($idstore=='3') {
         $query = "INSERT INTO `foo1`(`IDfood`, `name`, `IDstall`, `price`, `url`, `stallname`)
+             VALUES (NULL,'$name','3','$price','$url', 'McDonald\'s')";
+             
+             }
+         else $query = "INSERT INTO `foo1`(`IDfood`, `name`, `IDstall`, `price`, `url`, `stallname`)
              VALUES (NULL,'$name','$idstore','$price','$url', '$namestore')";
+
+        
 
         $result=mysqli_query($con, "SELECT * FROM `foo1` WHERE name='$name' AND IDstall='$idstore'");
         if (mysqli_num_rows($result) >0){
