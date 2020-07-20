@@ -1,5 +1,6 @@
 <?php
     include 'config/config.php';
+    if ($_SESSION['object']=='3') header('Location: homepage.php');
     include 'header.php';
     $result = mysqli_query($con,"SELECT * FROM sto1");
     
@@ -32,14 +33,22 @@
   <form class="form-inline" action="">
   <h4 style="margin-right:20px;">Danh sách món ăn:</h4>
   <select class="form-control mr-sm-2" id="show-store">
+    <?php if ($_SESSION['object']==1) { ?>
         <option value="">Cửa hàng</option>
-        <?php 
-        while($row = mysqli_fetch_array($result)){ ?>
+    <?php } ?>
+        <?php $result = mysqli_query($con,"SELECT * FROM sto1");
+        while($row = mysqli_fetch_array($result)){ 
+           if ($_SESSION['object']=='1') {?>
         <option
         value="<?php echo $row['IDstall']; ?>"><?php echo $row['name']; ?></option>
-        <?php } ?>
+        <?php } else if ($_SESSION['idst'] == $row['IDstall'] && $_SESSION['object'] !='1' ) { ?>
+            <option value="<?php echo $row['IDstall']; ?>"><?php echo $row['name']; ?></option>
+        <?php }
+        } ?>
    </select>
+   <?php if ($_SESSION['object']==1) { ?>
    <button type="button" class="btn btn-primary" onclick="readRecord()">Lọc</button>
+   <?php } ?>
    </form>
   <div id="records-contant" style="margin-top:10px;"></div>
   
@@ -62,11 +71,18 @@
         <div class="modal-body" >
             <form class="form-group" action="">
             <select class="form-control" id="idstore">
-            <option value="">Cửa hàng</option>
-            <?php $result = mysqli_query($con,"SELECT * FROM sto1");
-             while($rowstore = mysqli_fetch_array($result)) { ?>
-            <option value="<?php echo $rowstore['IDstall']; ?>"><?php echo $rowstore['name']; ?></option>
-            <?php } ?>
+            <?php if ($_SESSION['object']==1) { ?>
+        <option value="">Cửa hàng</option>
+    <?php } ?>
+        <?php $result = mysqli_query($con,"SELECT * FROM sto1");
+        while($row = mysqli_fetch_array($result)){ 
+           if ($_SESSION['object']=='1') {?>
+        <option
+        value="<?php echo $row['IDstall']; ?>"><?php echo $row['name']; ?></option>
+        <?php } else if ($_SESSION['idst'] == $row['IDstall'] && $_SESSION['object'] !='1' ) { ?>
+            <option value="<?php echo $row['IDstall']; ?>"><?php echo $row['name']; ?></option>
+        <?php }
+        } ?>
             </select>
 
             </form>

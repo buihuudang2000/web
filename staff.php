@@ -1,5 +1,6 @@
 <?php
     include 'config/config.php';
+    if ($_SESSION['object']=='3') header('Location: homepage.php');
     include 'header.php';
 
     
@@ -79,6 +80,7 @@
             <option value="1">Admin</option>
             <option value="2">Quản lí</option>
             <option value="3">Nhân viên</option>
+            
             </select>
 
           </form>
