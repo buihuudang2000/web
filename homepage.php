@@ -86,7 +86,7 @@
              document.getElementById("menu").style.display= "block";
              if (ob==4) alert("Chào Bạn! Bạn chỉ có thể truy cập vào trang cập nhật đơn hàng.");
              else
-             if (ob==3) alert("Chào Bạn! Bạn chỉ có thể truy cập vào trang thanh toán.");
+             if (ob==3) alert("Chào Bạn! Bạn chỉ có thể truy cập vào trang thanh toán và cập nhật đơn hàng.");
         }
          else {
              document.getElementById("menu").style.display= "none";

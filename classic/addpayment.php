@@ -117,10 +117,12 @@
 
     if (isset($_POST['save'])){
         $idcheck= $_POST['save'];
+        $idpager= $_POST['idpager'];
 
-        $upquery1= "UPDATE `orders` SET `status`='0' WHERE IDorder='$idcheck'";
+        $upquery1= "UPDATE `orders` SET `status`='0',`idpager`='$idpager' WHERE IDorder='$idcheck'";
 
         mysqli_query($con, $upquery1);
+
         echo 'Đã cập nhật';
         
     }

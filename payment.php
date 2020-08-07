@@ -159,7 +159,7 @@
                                                             <label>ID Pager</label>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <input type="text" id="pager" 
+                                                            <input type="text" id="idpager" 
                                                                    class="form-control "
                                                                    placeholder="Nhập ID Pager" style="border-radius: 0 !important;">
                                                         </div>
@@ -304,6 +304,7 @@
                     $('#total').val(data);
                     $('#total-after-discount').html(data);
                     $('#debt').html(data);
+                    $('#debtlabel').html("Khách còn nợ");
                     if (data=="") $('#total-money').html("0"); else $('#total-money').html(data);
                     
                 },
@@ -361,11 +362,14 @@
 
         function save() {
             var save=$('#search-pro-box').val();
+            var idpager=$('#idpager').val();
+            
             $.ajax({
                 url:"classic/addpayment.php",
                 type:'post',
                 data: {
-                    save:save
+                    save:save,
+                    idpager:idpager
                 },
                 success: function(data, status){
                     alert(data);

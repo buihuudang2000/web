@@ -1,6 +1,6 @@
 <?php
     include 'config/config.php';
-    if ($_SESSION['object']=='3') header('Location: homepage.php');
+   
     include 'header.php';
     
     
